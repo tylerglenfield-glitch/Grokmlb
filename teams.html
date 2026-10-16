@@ -23,6 +23,9 @@
         <li><a href="teams.html" class="active">Teams</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="fav-btn" id="headerFavBtn" onclick="goToFavorite()">
+          <span>⭐</span> <span id="headerFavLabel">My Team</span>
+        </button>
         <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
       </div>
     </nav>
@@ -60,32 +63,48 @@
 
       <div class="team-grid" id="teamGrid"></div>
 
-      <!-- Spotlight -->
+      <!-- Deep Spotlight -->
       <div class="spotlight" id="spotlight">
-        <div class="spot-img">
-          <img id="spotImg" src="https://images.unsplash.com/photo-1508802222057-4cabc15b825f?auto=format&fit=crop&w=800&q=80" alt="Team">
-          <div class="spot-badge" id="spotBadge">NL Champions</div>
+        <div class="spot-hero">
+          <img id="spotImg" src="https://images.unsplash.com/photo-1566577739112-ce2c1e0d1d5f?auto=format&fit=crop&w=1200&q=80" alt="Team">
+          <div class="spot-hero-overlay">
+            <div class="spot-badge" id="spotBadge">NL Champions</div>
+            <h2 id="spotName">Milwaukee Brewers</h2>
+            <p id="spotShape">Peak Contender • 103-59</p>
+          </div>
         </div>
-        <div>
-          <div class="spot-head">
-            <h3 id="spotName">Milwaukee Brewers</h3>
-            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-              <button class="btn btn-sm btn-outline" id="favBtn" onclick="setFavorite()">❤️ Set Favorite</button>
-              <a id="spotTickets" href="https://www.stubhub.com/mlb-tickets" target="_blank" rel="noopener" class="btn btn-sm btn-gold">Tickets 🎟️</a>
+        <div class="spot-body">
+          <div class="spot-actions">
+            <button class="btn btn-sm btn-outline" id="favBtn" onclick="setFavorite()">❤️ Set as Favorite</button>
+            <a href="https://www.stubhub.com/mlb-tickets" target="_blank" rel="noopener" class="btn btn-sm btn-gold">Buy Tickets 🎟️</a>
+            <a id="spotMlb" href="https://www.mlb.com/brewers" target="_blank" rel="noopener" class="btn btn-sm btn-outline">Official Site ↗</a>
+          </div>
+
+          <p class="spot-analysis" id="spotDesc">
+            The Milwaukee Brewers put together one of the most complete seasons in recent memory. With an MLB-best 103-59 record, elite starting pitching, and a lockdown bullpen, they steamrolled through the National League and completed a stunning 4-0 sweep of the defending champion Dodgers in the NLCS. Now they wait for the ALCS winner with home-field advantage in the World Series — their first appearance since 1982.
+          </p>
+
+          <div class="spot-grid">
+            <div class="spot-block">
+              <h4>📅 Recent / Upcoming Games</h4>
+              <ul id="spotGames"></ul>
+            </div>
+            <div class="spot-block">
+              <h4>⭐ Key Players</h4>
+              <ul id="spotPlayers"></ul>
             </div>
           </div>
-          <p class="spot-desc" id="spotDesc">The Brewers swept the Dodgers 4-0 in the NLCS to reach their first World Series since 1982.</p>
-          <div class="stats">
+
+          <div class="stats-row">
             <div class="stat"><span>2026 Record</span><strong id="spotRec">103-59</strong></div>
             <div class="stat"><span>Status</span><strong id="spotPos">NL Champions</strong></div>
-            <div class="stat"><span>Star Player</span><strong id="spotStar">Jackson Chourio</strong></div>
+            <div class="stat"><span>Team Shape</span><strong id="spotShapeStat">Peak</strong></div>
             <div class="stat"><span>WS Titles</span><strong id="spotWS">0</strong></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Compare -->
     <section class="section">
       <div class="section-head">
         <div>

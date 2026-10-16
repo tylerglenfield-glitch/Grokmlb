@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MLB Postseason 2026 | Interactive Bracket</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-mode">
+
+  <header class="top-header">
+    <nav class="navbar">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon-bg">⚾</div>
+        <div class="logo-text">
+          <span class="logo-title">OCTOBER PORTAL</span>
+          <span class="logo-sub">MLB POSTSEASON 2026</span>
+        </div>
+      </a>
+      <ul class="nav-directory">
+        <li><a href="index.html" class="nav-link">Scores & AI</a></li>
+        <li><a href="bracket.html" class="nav-link active">Bracket</a></li>
+        <li><a href="teams.html" class="nav-link">Teams</a></li>
+      </ul>
+      <div class="header-controls">
+        <button id="theme-toggle" class="icon-toggle-btn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="ticker-bar">
+    <div class="ticker-badge"><span class="pulse-dot"></span> LIVE</div>
+    <div class="ticker-content">Brewers win NLCS 4-0 • Guardians lead ALCS 2-1 • Game 4 tonight</div>
+  </div>
+
+  <main class="main-layout">
+    <section class="content-section">
+      <div class="section-heading">
+        <div>
+          <span class="heading-kicker">OFFICIAL BRACKET</span>
+          <h2>2026 Postseason Bracket</h2>
+          <p class="section-subtitle">Click any matchup for details. Turn on Predictor Mode to pick your winners!</p>
+        </div>
+        <div class="bracket-filter-btns">
+          <button class="filter-tab active" onclick="filterBracket('all', event)">Full Bracket</button>
+          <button class="filter-tab" onclick="filterBracket('al', event)">AL Only</button>
+          <button class="filter-tab" onclick="filterBracket('nl', event)">NL Only</button>
+          <button class="filter-tab predictor-tab" id="predictor-toggle-btn" onclick="togglePredictorMode()">🎯 Predictor: OFF</button>
+        </div>
+      </div>
+
+      <div id="predictor-status-banner" class="predictor-status-bar">
+        <span>🎯 <strong>PREDICTOR MODE ON:</strong> Click any team to advance them!</span>
+        <button onclick="resetPredictorPicks()" class="btn-reset-picks">Reset Picks</button>
+      </div>
+
+      <div class="bracket-wrapper">
+        <div class="bracket-tree" id="bracket-tree">
+
+          <div class="bracket-column">
+            <h3 class="round-header">Wild Card <span class="sub-head">(Best of 3)</span></h3>
+            <div class="matchup-node" onclick="openMatchup('AL_WC')">
+              <div class="node-label">AL WC</div>
+              <div class="node-team winner"><span class="seed">#3</span> Guardians <span class="node-score">2</span></div>
+              <div class="node-team"><span class="seed">#6</span> Tigers <span class="node-score">1</span></div>
+              <div class="node-status">CLE wins 2-1</div>
+            </div>
+            <div class="matchup-node" onclick="openMatchup('AL_WC2')">
+              <div class="node-label">AL WC</div>
+              <div class="node-team winner"><span class="seed">#4</span> Yankees <span class="node-score">2</span></div>
+              <div class="node-team"><span class="seed">#5</span> Red Sox <span class="node-score">0</span></div>
+              <div class="node-status">NYY wins 2-0</div>
+            </div>
+            <div class="matchup-node" onclick="openMatchup('NL_WC')">
+              <div class="node-label">NL WC</div>
+              <div class="node-team winner"><span class="seed">#3</span> Braves <span class="node-score">2</span></div>
+              <div class="node-team"><span class="seed">#6</span> Phillies <span class="node-score">1</span></div>
+              <div class="node-status">ATL wins 2-1</div>
+            </div>
+            <div class="matchup-node" onclick="openMatchup('NL_WC2')">
+              <div class="node-label">NL WC</div>
+              <div class="node-team winner"><span class="seed">#4</span> Padres <span class="node-score">2</span></div>
+              <div class="node-team"><span class="seed">#5</span> Cubs <span class="node-score">0</span></div>
+              <div class="node-status">SD wins 2-0</div>
+            </div>
+          </div>
+
+          <div class="bracket-column">
+            <h3 class="round-header">Division Series <span class="sub-head">(Best of 5)</span></h3>
+            <div class="matchup-node" onclick="openMatchup('ALDS1')">
+              <div class="node-label">ALDS</div>
+              <div class="node-team winner"><span class="seed">#1</span> Rays <span class="node-score">3</span></div>
+              <div class="node-team"><span class="seed">#4</span> Yankees <span class="node-score">0</span></div>
+              <div class="node-status gold">TB sweeps 3-0</div>
+            </div>
+            <div class="matchup-node" onclick="openMatchup('ALDS2')">
+              <div class="node-label">ALDS</div>
+              <div class="node-team winner"><span class="seed">#2</span> Guardians <span class="node-score">3</span></div>
+              <div class="node-team"><span class="seed">#6</span> White Sox <span class="node-score">2</span></div>
+              <div class="node-status">CLE wins 3-2</div>
+            </div>
+            <div class="matchup-node" onclick="openMatchup('NLDS1')">
+              <div class="node-label">NLDS</div>
+              <div class="node-team winner"><span class="seed">#1</span> Brewers <span class="node-score">3</span></div>
+              <div class="node-team"><span class="seed">#4</span> Padres <span class="node-score">1</span></div>
+              <div class="node-status">MIL wins 3-1</div>
+            </div>
+            <div class="matchup-node" onclick="openMatchup('NLDS2')">
+              <div class="node-label">NLDS</div>
+              <div class="node-team winner"><span class="seed">#2</span> Dodgers <span class="node-score">3</span></div>
+              <div class="node-team"><span class="seed">#3</span> Braves <span class="node-score">1</span></div>
+              <div class="node-status">LAD wins 3-1</div>
+            </div>
+          </div>
+
+          <div class="bracket-column">
+            <h3 class="round-header">Championship Series</h3>
+            <div class="matchup-node active-series" onclick="openMatchup('ALCS')">
+              <div class="node-label live-label">ALCS • LIVE</div>
+              <div class="node-team winner" onclick="pickTeam('ALCS','Guardians',event)"><span class="seed">#2</span> Guardians <span class="node-score">2</span></div>
+              <div class="node-team" onclick="pickTeam('ALCS','Rays',event)"><span class="seed">#1</span> Rays <span class="node-score">1</span></div>
+              <div class="node-status gold">CLE leads 2-1 • Game 4 tonight</div>
+            </div>
+            <div class="matchup-node active-series" onclick="openMatchup('NLCS')">
+              <div class="node-label">NLCS • FINAL</div>
+              <div class="node-team winner" onclick="pickTeam('NLCS','Brewers',event)"><span class="seed">#1</span> Brewers 🏆 <span class="node-score">4</span></div>
+              <div class="node-team" onclick="pickTeam('NLCS','Dodgers',event)"><span class="seed">#2</span> Dodgers <span class="node-score">0</span></div>
+              <div class="node-status gold">MIL wins 4-0 • NL Champions</div>
+            </div>
+          </div>
+
+          <div class="bracket-column">
+            <h3 class="round-header gold-header">World Series 👑</h3>
+            <div class="matchup-node" onclick="openMatchup('WS')">
+              <div class="node-label ws-label">2026 WORLD SERIES</div>
+              <div class="node-team winner" onclick="pickTeam('WS','Brewers',event)"><span class="seed">NL</span> Brewers</div>
+              <div class="node-team pending" onclick="pickTeam('WS','AL Champion',event)"><span class="seed">AL</span> <span id="pred-al-champ">AL Champion (TBD)</span></div>
+              <div class="node-status gold">Starts Oct 23 on FOX</div>
+            </div>
+            <div id="champ-crown-box" class="champ-crown-box">
+              <span class="crown-icon">👑</span>
+              <span class="champ-title">YOUR 2026 CHAMPION</span>
+              <strong id="champ-team-name" class="champ-name">—</strong>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="info-card-box">
+        <h3>📋 Key Info</h3>
+        <ul class="styled-info-list">
+          <li><strong>NLCS:</strong> Brewers swept Dodgers 4-0 and are World Series bound.</li>
+          <li><strong>ALCS:</strong> Guardians lead Rays 2-1. Game 4 is tonight in Cleveland (8 PM ET, TBS).</li>
+          <li><strong>World Series:</strong> Begins Friday, October 23. Milwaukee hosts Games 1 & 2.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="section-heading">
+        <div>
+          <span class="heading-kicker">BROADCAST</span>
+          <h2>Upcoming Games & TV</h2>
+        </div>
+      </div>
+      <div class="table-card-wrapper">
+        <table class="schedule-table">
+          <thead>
+            <tr>
+              <th>Matchup</th>
+              <th>Date & Time (ET)</th>
+              <th>Network</th>
+              <th>Venue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ALCS Game 4</strong><br><span style="font-size:12px;color:var(--text-muted)">Rays @ Guardians</span></td>
+              <td>Oct 16 • 8:00 PM</td>
+              <td><span class="net-pill net-tbs">TBS</span></td>
+              <td>Progressive Field</td>
+            </tr>
+            <tr>
+              <td><strong>ALCS Game 5</strong><br><span style="font-size:12px;color:var(--text-muted)">Rays @ Guardians</span></td>
+              <td>Oct 17 • 8:00 PM</td>
+              <td><span class="net-pill net-tbs">TBS</span></td>
+              <td>Progressive Field</td>
+            </tr>
+            <tr>
+              <td><strong>World Series Game 1</strong><br><span style="font-size:12px;color:var(--text-muted)">AL Champ @ Brewers</span></td>
+              <td>Oct 23 • 8:00 PM</td>
+              <td><span class="net-pill net-fox">FOX</span></td>
+              <td>American Family Field</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="matchup-modal" class="modal-backdrop" onclick="closeModal(event)">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModalDirect()">&times;</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-brand">
+      <span class="logo-icon-bg sm">⚾</span>
+      <span>MLB POSTSEASON 2026 PORTAL</span>
+    </div>
+    <p>School project built with HTML, CSS & JavaScript</p>
+    <div class="footer-copy">&copy; 2026 • Educational use only</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

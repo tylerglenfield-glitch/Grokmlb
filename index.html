@@ -23,6 +23,9 @@
         <li><a href="teams.html">Teams</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="fav-btn" id="headerFavBtn" onclick="goToFavorite()">
+          <span>⭐</span> <span id="headerFavLabel">My Team</span>
+        </button>
         <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
       </div>
     </nav>
@@ -52,7 +55,6 @@
 
   <main class="wrap">
 
-    <!-- AI Forecast -->
     <section class="section">
       <div class="section-head">
         <div>
@@ -70,19 +72,14 @@
           <p style="color:var(--muted);font-size:0.92rem;margin-bottom:1.2rem;">
             Dominant 4-0 sweep of the Dodgers. Best regular-season record (103-59). Hosts Games 1 & 2 of the World Series.
           </p>
-
           <div class="prob-row"><span>Milwaukee Brewers</span><strong>71.5%</strong></div>
           <div class="prob-bar"><div class="prob-fill" style="width:71.5%;background:#f59e0b;"></div></div>
-
           <div class="prob-row"><span>Cleveland Guardians</span><strong>16.8%</strong></div>
           <div class="prob-bar"><div class="prob-fill" style="width:16.8%;background:#e31937;"></div></div>
-
           <div class="prob-row"><span>Tampa Bay Rays</span><strong>11.7%</strong></div>
           <div class="prob-bar"><div class="prob-fill" style="width:11.7%;background:#00a3e0;"></div></div>
-
           <div class="prob-row"><span>Los Angeles Dodgers (Eliminated)</span><strong>0.0%</strong></div>
           <div class="prob-bar"><div class="prob-fill" style="width:0%;background:#005a9c;"></div></div>
-
           <div class="metrics">
             <div class="metric"><span>Bullpen ERA</span><strong class="green">0.88</strong></div>
             <div class="metric"><span>NLCS Result</span><strong class="blue">4–0</strong></div>
@@ -113,7 +110,6 @@
       </div>
     </section>
 
-    <!-- MVP Poll -->
     <section class="section">
       <div class="section-head">
         <div>
@@ -125,7 +121,6 @@
       <div class="card" id="pollBox"></div>
     </section>
 
-    <!-- Scoreboard -->
     <section class="section">
       <div class="section-head">
         <div>
@@ -155,7 +150,6 @@
       </div>
     </section>
 
-    <!-- News -->
     <section class="section">
       <div class="section-head">
         <div>
@@ -166,7 +160,7 @@
       <div class="news-grid">
         <article class="news-card">
           <div class="news-img">
-            <img src="https://images.unsplash.com/photo-1508802222057-4cabc15b825f?auto=format&fit=crop&w=800&q=80" alt="Brewers">
+            <img src="https://images.unsplash.com/photo-1566577739112-ce2c1e0d1d5f?auto=format&fit=crop&w=800&q=80" alt="Baseball stadium">
             <span class="news-tag">NL PENNANT</span>
           </div>
           <div class="news-body">
@@ -178,7 +172,7 @@
         </article>
         <article class="news-card">
           <div class="news-img">
-            <img src="https://images.unsplash.com/photo-1562077772-3bd90403f7f0?auto=format&fit=crop&w=800&q=80" alt="Guardians">
+            <img src="https://images.unsplash.com/photo-1471295253337-3ceaaedca402?auto=format&fit=crop&w=800&q=80" alt="Baseball glove and ball">
             <span class="news-tag">ALCS</span>
           </div>
           <div class="news-body">
@@ -190,7 +184,7 @@
         </article>
         <article class="news-card">
           <div class="news-img">
-            <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80" alt="Stadium">
+            <img src="https://images.unsplash.com/photo-1593341646782-e0b495cff86d?auto=format&fit=crop&w=800&q=80" alt="Baseball pitcher">
             <span class="news-tag">TICKETS</span>
           </div>
           <div class="news-body">

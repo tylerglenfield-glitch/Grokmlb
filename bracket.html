@@ -23,6 +23,9 @@
         <li><a href="teams.html">Teams</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="fav-btn" id="headerFavBtn" onclick="goToFavorite()">
+          <span>⭐</span> <span id="headerFavLabel">My Team</span>
+        </button>
         <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
       </div>
     </nav>
@@ -57,8 +60,6 @@
 
       <div class="bracket-scroll">
         <div class="bracket">
-
-          <!-- Wild Card -->
           <div class="col">
             <div class="col-title">Wild Card</div>
             <div class="node" onclick="openMatchup('wc')">
@@ -87,7 +88,6 @@
             </div>
           </div>
 
-          <!-- Division Series -->
           <div class="col">
             <div class="col-title">Division Series</div>
             <div class="node" onclick="openMatchup('alds')">
@@ -116,7 +116,6 @@
             </div>
           </div>
 
-          <!-- LCS -->
           <div class="col">
             <div class="col-title">Championship Series</div>
             <div class="node live" onclick="openMatchup('alcs')">
@@ -133,7 +132,6 @@
             </div>
           </div>
 
-          <!-- World Series -->
           <div class="col">
             <div class="col-title gold">World Series 👑</div>
             <div class="node" onclick="openMatchup('ws')">
@@ -148,7 +146,6 @@
               <div class="name" id="champName">—</div>
             </div>
           </div>
-
         </div>
       </div>
 
@@ -162,7 +159,6 @@
       </div>
     </section>
 
-    <!-- Broadcast + Tickets -->
     <section class="section">
       <div class="section-head">
         <div>
@@ -218,7 +214,6 @@
 
   </main>
 
-  <!-- Modal -->
   <div class="modal" id="modal" onclick="closeModal(event)">
     <div class="modal-box">
       <button class="modal-close" onclick="closeModalDirect()">&times;</button>

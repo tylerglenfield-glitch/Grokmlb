@@ -3,112 +3,122 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MLB Postseason 2026 | Teams Hub</title>
+  <title>MLB Postseason 2026 | All 30 Teams</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="dark-mode">
+<body>
 
-  <header class="top-header">
-    <nav class="navbar">
-      <a href="index.html" class="brand-logo">
-        <div class="logo-icon-bg">⚾</div>
-        <div class="logo-text">
-          <span class="logo-title">OCTOBER PORTAL</span>
-          <span class="logo-sub">MLB POSTSEASON 2026</span>
+  <header class="header">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <div class="brand-icon">⚾</div>
+        <div class="brand-text">
+          <div class="brand-title">OCTOBER PORTAL</div>
+          <div class="brand-sub">MLB POSTSEASON 2026</div>
         </div>
       </a>
-      <ul class="nav-directory">
-        <li><a href="index.html" class="nav-link">Scores & AI</a></li>
-        <li><a href="bracket.html" class="nav-link">Bracket</a></li>
-        <li><a href="teams.html" class="nav-link active">Teams</a></li>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="bracket.html">Bracket</a></li>
+        <li><a href="teams.html" class="active">Teams</a></li>
       </ul>
-      <div class="header-controls">
-        <button id="theme-toggle" class="icon-toggle-btn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
       </div>
     </nav>
   </header>
 
-  <div class="ticker-bar">
-    <div class="ticker-badge"><span class="pulse-dot"></span> LIVE</div>
-    <div class="ticker-content">Brewers = NL Champions • Guardians lead Rays 2-1 in ALCS</div>
+  <div class="ticker">
+    <div class="ticker-live"><span class="dot"></span> LIVE</div>
+    <div class="ticker-text">All 30 franchises • Search, filter, compare & set your favorite team</div>
   </div>
 
-  <main class="main-layout">
+  <main class="wrap">
 
-    <section class="content-section">
-      <div class="section-heading">
+    <section class="section">
+      <div class="section-head">
         <div>
-          <span class="heading-kicker">FRANCHISE HUB</span>
-          <h2>Team Directory</h2>
-          <p class="section-subtitle">Select a team to view their 2026 story and stats.</p>
+          <span class="kicker">30-TEAM DIRECTORY</span>
+          <h2>Franchise Hub</h2>
+          <p>Search any team, filter by league/division, compare head-to-head, and set your favorite.</p>
         </div>
       </div>
 
-      <input type="text" id="team-search-input" class="search-input-field" placeholder="🔍 Search teams..." onkeyup="searchTeams(this.value)">
+      <input type="text" class="search" id="teamSearch" placeholder="🔍 Search by team name or city..." onkeyup="searchTeams(this.value)">
 
-      <div class="division-tab-bar">
-        <button class="div-tab-btn active" onclick="filterTeams('ALL', event)">All Teams</button>
-        <button class="div-tab-btn" onclick="filterTeams('AL', event)">American League</button>
-        <button class="div-tab-btn" onclick="filterTeams('NL', event)">National League</button>
+      <div class="div-tabs">
+        <button class="div-tab active" onclick="filterTeams('ALL',event)">All 30</button>
+        <button class="div-tab" onclick="filterTeams('AL',event)">American League</button>
+        <button class="div-tab" onclick="filterTeams('NL',event)">National League</button>
+        <button class="div-tab" onclick="filterTeams('AL_EAST',event)">AL East</button>
+        <button class="div-tab" onclick="filterTeams('AL_CENTRAL',event)">AL Central</button>
+        <button class="div-tab" onclick="filterTeams('AL_WEST',event)">AL West</button>
+        <button class="div-tab" onclick="filterTeams('NL_EAST',event)">NL East</button>
+        <button class="div-tab" onclick="filterTeams('NL_CENTRAL',event)">NL Central</button>
+        <button class="div-tab" onclick="filterTeams('NL_WEST',event)">NL West</button>
       </div>
 
-      <div class="team-grid-picker" id="team-picker-grid"></div>
+      <div class="team-grid" id="teamGrid"></div>
 
-      <div class="spotlight-card" id="team-spotlight-card">
-        <div class="spotlight-media">
-          <img id="spotlight-img" src="https://images.unsplash.com/photo-1508802222057-4cabc15b825f?auto=format&fit=crop&w=800&q=80" alt="Team">
-          <div class="spotlight-media-badge" id="spotlight-badge">NL Champions</div>
+      <!-- Spotlight -->
+      <div class="spotlight" id="spotlight">
+        <div class="spot-img">
+          <img id="spotImg" src="https://images.unsplash.com/photo-1508802222057-4cabc15b825f?auto=format&fit=crop&w=800&q=80" alt="Team">
+          <div class="spot-badge" id="spotBadge">NL Champions</div>
         </div>
         <div>
-          <div class="spotlight-header">
-            <h3 id="spotlight-title">Milwaukee Brewers</h3>
-            <button onclick="setFavorite()" class="btn btn-secondary" id="fav-btn">❤️ Set Favorite</button>
+          <div class="spot-head">
+            <h3 id="spotName">Milwaukee Brewers</h3>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+              <button class="btn btn-sm btn-outline" id="favBtn" onclick="setFavorite()">❤️ Set Favorite</button>
+              <a id="spotTickets" href="https://www.stubhub.com/mlb-tickets" target="_blank" rel="noopener" class="btn btn-sm btn-gold">Tickets 🎟️</a>
+            </div>
           </div>
-          <p class="spotlight-description" id="spotlight-desc">
-            The Milwaukee Brewers dominated the 2026 postseason, sweeping the Dodgers 4-0 in the NLCS to reach their first World Series since 1982.
-          </p>
-          <div class="spotlight-stats-grid">
-            <div class="stat-pill-box"><span class="stat-lbl">2026 Record</span><strong class="stat-val" id="spotlight-rec">103-59</strong></div>
-            <div class="stat-pill-box"><span class="stat-lbl">Status</span><strong class="stat-val" id="spotlight-pos">NL Champions</strong></div>
-            <div class="stat-pill-box"><span class="stat-lbl">Star Player</span><strong class="stat-val" id="spotlight-star">Jackson Chourio</strong></div>
-            <div class="stat-pill-box"><span class="stat-lbl">WS Titles</span><strong class="stat-val" id="spotlight-ws">0</strong></div>
+          <p class="spot-desc" id="spotDesc">The Brewers swept the Dodgers 4-0 in the NLCS to reach their first World Series since 1982.</p>
+          <div class="stats">
+            <div class="stat"><span>2026 Record</span><strong id="spotRec">103-59</strong></div>
+            <div class="stat"><span>Status</span><strong id="spotPos">NL Champions</strong></div>
+            <div class="stat"><span>Star Player</span><strong id="spotStar">Jackson Chourio</strong></div>
+            <div class="stat"><span>WS Titles</span><strong id="spotWS">0</strong></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="content-section">
-      <div class="section-heading">
+    <!-- Compare -->
+    <section class="section">
+      <div class="section-head">
         <div>
-          <span class="heading-kicker">COMPARE</span>
-          <h2>Head-to-Head Team Comparison</h2>
+          <span class="kicker">HEAD-TO-HEAD</span>
+          <h2>Team Comparison</h2>
+          <p>Pick any two franchises and compare records, status, and stars.</p>
         </div>
       </div>
-      <div class="card-box">
-        <div class="compare-selectors">
+      <div class="card">
+        <div class="compare-row">
           <div>
             <label>Team 1</label>
-            <select id="compare-select-1" class="custom-select" onchange="runComparison()"></select>
+            <select class="select" id="cmp1" onchange="runCompare()"></select>
           </div>
-          <div class="vs-badge-circle">VS</div>
+          <div class="vs">VS</div>
           <div>
             <label>Team 2</label>
-            <select id="compare-select-2" class="custom-select" onchange="runComparison()"></select>
+            <select class="select" id="cmp2" onchange="runCompare()"></select>
           </div>
         </div>
-        <div id="compare-result-box" style="margin-top:1.5rem;"></div>
+        <div id="cmpResult"></div>
       </div>
     </section>
 
   </main>
 
-  <footer>
+  <footer class="footer">
     <div class="footer-brand">
-      <span class="logo-icon-bg sm">⚾</span>
+      <div class="brand-icon" style="width:30px;height:30px;font-size:1rem;">⚾</div>
       <span>MLB POSTSEASON 2026 PORTAL</span>
     </div>
     <p>School project built with HTML, CSS & JavaScript</p>
-    <div class="footer-copy">&copy; 2026 • Educational use only</div>
+    <div class="footer-copy">© 2026 • Educational use only</div>
   </footer>
 
   <script src="script.js"></script>

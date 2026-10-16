@@ -2,49 +2,266 @@
    2026 MLB POSTSEASON PORTAL — script.js
    ============================================================ */
 
+const PHOTOS = {
+  stadium: "https://images.unsplash.com/photo-1566577739112-ce2c1e0d1d5f?auto=format&fit=crop&w=1200&q=80",
+  field:   "https://images.unsplash.com/photo-1471295253337-3ceaaedca402?auto=format&fit=crop&w=1200&q=80",
+  batter:  "https://images.unsplash.com/photo-1593341646782-e0b495cff86d?auto=format&fit=crop&w=1200&q=80",
+  night:   "https://images.unsplash.com/photo-1529763807622-491b1bb86698?auto=format&fit=crop&w=1200&q=80"
+};
+
 // -------------------- FULL 30-TEAM DATABASE --------------------
 const TEAMS = {
   // AL EAST
-  yankees:   { name:"New York Yankees",     div:"AL_EAST",    league:"AL", rec:"93-69",  pos:"Eliminated in ALDS",     star:"Aaron Judge",        ws:"27", desc:"Strong regular season behind Aaron Judge, but swept by the Rays in the ALDS.", img:"https://images.unsplash.com/photo-1562077772-3bd90403f7f0?auto=format&fit=crop&w=800&q=80" },
-  rays:      { name:"Tampa Bay Rays",       div:"AL_EAST",    league:"AL", rec:"98-64",  pos:"ALCS Trail 1-2",          star:"Junior Caminero",    ws:"0",  desc:"AL-best 98 wins and swept the Yankees. Trail 1-2 in the ALCS and must win Game 4 tonight.", img:"https://images.unsplash.com/photo-1529763807622-491b1bb86698?auto=format&fit=crop&w=800&q=80" },
-  redsox:    { name:"Boston Red Sox",       div:"AL_EAST",    league:"AL", rec:"89-73",  pos:"Eliminated in WC",       star:"Rafael Devers",      ws:"9",  desc:"Earned a Wild Card berth but fell in the opening round.", img:"https://images.unsplash.com/photo-1508802222057-4cabc15b825f?auto=format&fit=crop&w=800&q=80" },
-  orioles:   { name:"Baltimore Orioles",    div:"AL_EAST",    league:"AL", rec:"86-76",  pos:"Missed Playoffs",        star:"Gunnar Henderson",   ws:"3",  desc:"Solid season led by Gunnar Henderson but finished just outside the postseason.", img:"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80" },
-  bluejays:  { name:"Toronto Blue Jays",    div:"AL_EAST",    league:"AL", rec:"82-80",  pos:"Missed Playoffs",        star:"Vladimir Guerrero Jr.", ws:"2", desc:"Vladimir Guerrero Jr. carried the offense in a .500 season.", img:"https://images.unsplash.com/photo-1562077772-3bd90403f7f0?auto=format&fit=crop&w=800&q=80" },
+  yankees: {
+    name:"New York Yankees", div:"AL_EAST", league:"AL", rec:"93-69",
+    pos:"Eliminated in ALDS", shape:"Contending", star:"Aaron Judge", ws:"27",
+    desc:"The Yankees posted 93 wins behind another monster season from Aaron Judge, but ran into a hot Tampa Bay Rays club in the ALDS and were swept. The core remains strong, though questions linger about starting depth heading into the offseason.",
+    games:["ALDS G3: L 1-5 vs TB","ALDS G2: L 2-4 vs TB","ALDS G1: L 3-6 vs TB"],
+    players:["Aaron Judge — .322, 53 HR","Juan Soto — .288, 35 HR","Gerrit Cole — 15-7, 3.12 ERA"],
+    img: PHOTOS.batter, url:"https://www.mlb.com/yankees"
+  },
+  rays: {
+    name:"Tampa Bay Rays", div:"AL_EAST", league:"AL", rec:"98-64",
+    pos:"ALCS Trail 1-2", shape:"Peak Contender", star:"Junior Caminero", ws:"0",
+    desc:"Tampa Bay put together the best record in the American League and looked nearly unstoppable in October — until Cleveland stole Game 3. With elite pitching and opportunistic hitting, the Rays remain dangerous and can still force this series back to Tropicana Field.",
+    games:["ALCS G3: L 2-3 @ CLE","ALCS G2: W 3-1 vs CLE","ALCS G1: L 3-7 @ CLE"],
+    players:["Junior Caminero — .290, 31 HR, 3 PS HR","Shane Baz — 14-6, 2.95 ERA","Randy Arozarena — Clutch October performer"],
+    img: PHOTOS.night, url:"https://www.mlb.com/rays"
+  },
+  redsox: {
+    name:"Boston Red Sox", div:"AL_EAST", league:"AL", rec:"89-73",
+    pos:"Eliminated in WC", shape:"Contending", star:"Rafael Devers", ws:"9",
+    desc:"Boston returned to the postseason after a solid 89-win campaign led by Rafael Devers, but were bounced in the Wild Card round. The foundation is competitive, though the rotation still needs another arm.",
+    games:["WC G2: L 2-5 vs NYY","WC G1: L 3-4 vs NYY"],
+    players:["Rafael Devers — .282, 34 HR","Triston Casas — Emerging power bat","Brayan Bello — Rotation anchor"],
+    img: PHOTOS.stadium, url:"https://www.mlb.com/redsox"
+  },
+  orioles: {
+    name:"Baltimore Orioles", div:"AL_EAST", league:"AL", rec:"86-76",
+    pos:"Missed Playoffs", shape:"Rising", star:"Gunnar Henderson", ws:"3",
+    desc:"Baltimore stayed competitive most of the year behind Gunnar Henderson’s MVP-caliber production, but faded down the stretch and missed October. The young core remains one of the most promising in baseball.",
+    games:["Regular season finale","Missed postseason"],
+    players:["Gunnar Henderson — .281, 37 HR","Adley Rutschman — Elite catcher","Grayson Rodriguez — Frontline starter"],
+    img: PHOTOS.field, url:"https://www.mlb.com/orioles"
+  },
+  bluejays: {
+    name:"Toronto Blue Jays", div:"AL_EAST", league:"AL", rec:"82-80",
+    pos:"Missed Playoffs", shape:"Transition", star:"Vladimir Guerrero Jr.", ws:"2",
+    desc:"Toronto hovered around .500 all year. Vladimir Guerrero Jr. remained a middle-of-the-order force, but inconsistent pitching kept the Jays on the outside looking in.",
+    games:["Regular season","Missed postseason"],
+    players:["Vladimir Guerrero Jr. — .323, 30 HR","Bo Bichette — Contact machine","Kevin Gausman — Veteran arm"],
+    img: PHOTOS.batter, url:"https://www.mlb.com/bluejays"
+  },
 
   // AL CENTRAL
-  guardians: { name:"Cleveland Guardians",  div:"AL_CENTRAL", league:"AL", rec:"88-74",  pos:"ALCS Lead 2-1",          star:"José Ramírez",       ws:"2",  desc:"Came back from 0-2 in the ALDS and now lead the Rays 2-1 in the ALCS.", img:"https://images.unsplash.com/photo-1562077772-3bd90403f7f0?auto=format&fit=crop&w=800&q=80" },
-  tigers:    { name:"Detroit Tigers",       div:"AL_CENTRAL", league:"AL", rec:"86-76",  pos:"Eliminated in WC",       star:"Tarik Skubal",       ws:"4",  desc:"Tarik Skubal dominated but Detroit was eliminated in the Wild Card round.", img:"https://images.unsplash.com/photo-1529763807622-491b1bb86698?auto=format&fit=crop&w=800&q=80" },
-  whitesox:  { name:"Chicago White Sox",    div:"AL_CENTRAL", league:"AL", rec:"84-78",  pos:"Eliminated in ALDS",     star:"Luis Robert Jr.",    ws:"3",  desc:"Pushed Cleveland to five games in the ALDS before falling.", img:"https://images.unsplash.com/photo-1508802222057-4cabc15b825f?auto=format&fit=crop&w=800&q=80" },
-  twins:     { name:"Minnesota Twins",      div:"AL_CENTRAL", league:"AL", rec:"84-78",  pos:"Missed Playoffs",        star:"Carlos Correa",      ws:"3",  desc:"Finished just outside the postseason picture.", img:"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80" },
-  royals:    { name:"Kansas City Royals",   div:"AL_CENTRAL", league:"AL", rec:"83-79",  pos:"Missed Playoffs",        star:"Bobby Witt Jr.",     ws:"2",  desc:"Bobby Witt Jr. posted another 30-30 season for Kansas City.", img:"https://images.unsplash.com/photo-1562077772-3bd90403f7f0?auto=format&fit=crop&w=800&q=80" },
+  guardians: {
+    name:"Cleveland Guardians", div:"AL_CENTRAL", league:"AL", rec:"88-74",
+    pos:"ALCS Lead 2-1", shape:"Peak Contender", star:"José Ramírez", ws:"2",
+    desc:"Few teams embody October resilience like these Guardians. After dropping the first two games of the ALDS, Cleveland stormed back and now sit 2-1 in the ALCS. José Ramírez continues to be the heartbeat of a club built on pitching, defense, and timely hitting.",
+    games:["ALCS G3: W 3-2 vs TB","ALCS G2: L 1-3 vs TB","ALCS G1: W 7-3 vs TB"],
+    players:["José Ramírez — .279, 38 HR, 115 RBI","Steven Kwan — .312, elite defense","Emmanuel Clase — Shutdown closer"],
+    img: PHOTOS.stadium, url:"https://www.mlb.com/guardians"
+  },
+  tigers: {
+    name:"Detroit Tigers", div:"AL_CENTRAL", league:"AL", rec:"86-76",
+    pos:"Eliminated in WC", shape:"Rising", star:"Tarik Skubal", ws:"4",
+    desc:"Tarik Skubal was the best pitcher in the American League and dragged Detroit into the postseason conversation. The supporting cast is improving, but the Wild Card exit showed they still need more offense.",
+    games:["WC G2: L vs CLE","WC G1: L vs CLE"],
+    players:["Tarik Skubal — 18-4, 2.39 ERA","Riley Greene — Breakout bat","Spencer Torkelson — Power potential"],
+    img: PHOTOS.batter, url:"https://www.mlb.com/tigers"
+  },
+  whitesox: {
+    name:"Chicago White Sox", div:"AL_CENTRAL", league:"AL", rec:"84-78",
+    pos:"Eliminated in ALDS", shape:"Contending", star:"Luis Robert Jr.", ws:"3",
+    desc:"Chicago pushed the Guardians to five games in the ALDS and proved they belong. Luis Robert Jr. remains a five-tool force when healthy.",
+    games:["ALDS G5: L vs CLE","ALDS G4: W vs CLE"],
+    players:["Luis Robert Jr. — .270, 26 HR","Garrett Crochet — Emerging ace","Andrew Vaughn — Steady bat"],
+    img: PHOTOS.night, url:"https://www.mlb.com/whitesox"
+  },
+  twins: {
+    name:"Minnesota Twins", div:"AL_CENTRAL", league:"AL", rec:"84-78",
+    pos:"Missed Playoffs", shape:"Transition", star:"Carlos Correa", ws:"3",
+    desc:"Minnesota stayed in the race most of the summer but ultimately fell short. Carlos Correa’s leadership and glove remain valuable pieces.",
+    games:["Regular season","Missed postseason"],
+    players:["Carlos Correa — .290, 22 HR","Byron Buxton — Speed & power","Pablo López — Rotation leader"],
+    img: PHOTOS.field, url:"https://www.mlb.com/twins"
+  },
+  royals: {
+    name:"Kansas City Royals", div:"AL_CENTRAL", league:"AL", rec:"83-79",
+    pos:"Missed Playoffs", shape:"Rising", star:"Bobby Witt Jr.", ws:"2",
+    desc:"Bobby Witt Jr. continues to look like a future face of the league. Kansas City is building something real around him.",
+    games:["Regular season","Missed postseason"],
+    players:["Bobby Witt Jr. — .332, 32 HR, 31 SB","Vinnie Pasquantino — Pure hitter","Cole Ragans — Frontline starter"],
+    img: PHOTOS.stadium, url:"https://www.mlb.com/royals"
+  },
 
   // AL WEST
-  mariners:  { name:"Seattle Mariners",     div:"AL_WEST",    league:"AL", rec:"85-77",  pos:"Missed Playoffs",        star:"Julio Rodríguez",    ws:"0",  desc:"Julio Rodríguez led a competitive but ultimately short season.", img:"https://images.unsplash.com/photo-1529763807622-491b1bb86698?auto=format&fit=crop&w=800&q=80" },
-  astros:    { name:"Houston Astros",       div:"AL_WEST",    league:"AL", rec:"81-81",  pos:"Eliminated in WC",       star:"Yordan Alvarez",     ws:"2",  desc:"Reached the Wild Card but were eliminated early.", img:"https://images.unsplash.com/photo-1508802222057-4cabc15b825f?auto=format&fit=crop&w=800&q=80" },
-  rangers:   { name:"Texas Rangers",        div:"AL_WEST",    league:"AL", rec:"80-82",  pos:"Missed Playoffs",        star:"Corey Seager",       ws:"1",  desc:"Corey Seager provided power in a rebuilding year.", img:"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80" },
-  athletics: { name:"Athletics",            div:"AL_WEST",    league:"AL", rec:"69-93",  pos:"Missed Playoffs",        star:"Lawrence Butler",    ws:"9",  desc:"Young core continues to develop in Sacramento.", img:"https://images.unsplash.com/photo-1562077772-3bd90403f7f0?auto=format&fit=crop&w=800&q=80" },
-  angels:    { name:"Los Angeles Angels",   div:"AL_WEST",    league:"AL", rec:"66-96",  pos:"Missed Playoffs",        star:"Mike Trout",         ws:"1",  desc:"Mike Trout remains the face of the franchise.", img:"https://images.unsplash.com/photo-1529763807622-491b1bb86698?auto=format&fit=crop&w=800&q=80" },
+  mariners: {
+    name:"Seattle Mariners", div:"AL_WEST", league:"AL", rec:"85-77",
+    pos:"Missed Playoffs", shape:"Contending", star:"Julio Rodríguez", ws:"0",
+    desc:"Julio Rodríguez remains one of the most exciting players in baseball, but Seattle’s pitching depth wasn’t quite enough to push them into October.",
+    games:["Regular season","Missed postseason"],
+    players:["Julio Rodríguez — .285, 30 HR, 30 SB","Cal Raleigh — Power-hitting catcher","Luis Castillo — Ace"],
+    img: PHOTOS.night, url:"https://www.mlb.com/mariners"
+  },
+  astros: {
+    name:"Houston Astros", div:"AL_WEST", league:"AL", rec:"81-81",
+    pos:"Eliminated in WC", shape:"Transition", star:"Yordan Alvarez", ws:"2",
+    desc:"The dynasty years appear to be winding down. Houston still has talent, led by Yordan Alvarez, but the supporting pieces are aging.",
+    games:["WC: Eliminated"],
+    players:["Yordan Alvarez — .308, 35 HR","Jose Altuve — Veteran leader","Framber Valdez — Workhorse"],
+    img: PHOTOS.batter, url:"https://www.mlb.com/astros"
+  },
+  rangers: {
+    name:"Texas Rangers", div:"AL_WEST", league:"AL", rec:"80-82",
+    pos:"Missed Playoffs", shape:"Transition", star:"Corey Seager", ws:"1",
+    desc:"After their recent title, Texas took a step back. Corey Seager remains a middle-of-the-order force.",
+    games:["Regular season","Missed postseason"],
+    players:["Corey Seager — .278, 30 HR","Adolis García — Power bat","Nathan Eovaldi — Veteran arm"],
+    img: PHOTOS.field, url:"https://www.mlb.com/rangers"
+  },
+  athletics: {
+    name:"Athletics", div:"AL_WEST", league:"AL", rec:"69-93",
+    pos:"Missed Playoffs", shape:"Rebuild", star:"Lawrence Butler", ws:"9",
+    desc:"The Athletics are deep in a rebuild as they transition to a new home. Young talent is starting to surface.",
+    games:["Regular season","Missed postseason"],
+    players:["Lawrence Butler — Emerging outfielder","Zack Gelof — Speedy infielder","Mason Miller — Electric arm"],
+    img: PHOTOS.stadium, url:"https://www.mlb.com/athletics"
+  },
+  angels: {
+    name:"Los Angeles Angels", div:"AL_WEST", league:"AL", rec:"66-96",
+    pos:"Missed Playoffs", shape:"Rebuild", star:"Mike Trout", ws:"1",
+    desc:"Another difficult season in Anaheim. Mike Trout remains one of the greatest of his generation, but the supporting cast has not been enough.",
+    games:["Regular season","Missed postseason"],
+    players:["Mike Trout — Still elite when healthy","Taylor Ward — Solid corner bat","Patrick Sandoval — Rotation piece"],
+    img: PHOTOS.batter, url:"https://www.mlb.com/angels"
+  },
 
   // NL EAST
-  mets:      { name:"New York Mets",        div:"NL_EAST",    league:"NL", rec:"89-73",  pos:"Eliminated in NLDS",     star:"Juan Soto",          ws:"2",  desc:"Juan Soto’s first year in Queens produced 43 home runs and a playoff berth.", img:"https://images.unsplash.com/photo-1508802222057-4cabc15b825f?auto=format&fit=crop&w=800&q=80" },
-  braves:    { name:"Atlanta Braves",       div:"NL_EAST",    league:"NL", rec:"94-68",  pos:"Eliminated in NLDS",     star:"Ronald Acuña Jr.",   ws:"4",  desc:"Won 94 games but fell to the Dodgers in the NLDS.", img:"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80" },
-  phillies:  { name:"Philadelphia Phillies",div:"NL_EAST",    league:"NL", rec:"88-74",  pos:"Eliminated in WC",       star:"Bryce Harper",       ws:"2",  desc:"Bryce Harper and Zack Wheeler led another competitive season.", img:"https://images.unsplash.com/photo-1562077772-3bd90403f7f0?auto=format&fit=crop&w=800&q=80" },
-  nationals: { name:"Washington Nationals", div:"NL_EAST",    league:"NL", rec:"71-91",  pos:"Missed Playoffs",        star:"CJ Abrams",          ws:"1",  desc:"Young core continues to grow in the nation’s capital.", img:"https://images.unsplash.com/photo-1529763807622-491b1bb86698?auto=format&fit=crop&w=800&q=80" },
-  marlins:   { name:"Miami Marlins",        div:"NL_EAST",    league:"NL", rec:"62-100", pos:"Missed Playoffs",        star:"Eury Pérez",         ws:"2",  desc:"Rebuilding year focused on pitching development.", img:"https://images.unsplash.com/photo-1508802222057-4cabc15b825f?auto=format&fit=crop&w=800&q=80" },
+  mets: {
+    name:"New York Mets", div:"NL_EAST", league:"NL", rec:"89-73",
+    pos:"Eliminated in NLDS", shape:"Contending", star:"Juan Soto", ws:"2",
+    desc:"Juan Soto’s first season in Queens lived up to the hype — 43 home runs and elite on-base skills. The Mets made October but couldn’t get past the Division Series.",
+    games:["NLDS: Eliminated","WC: Advanced"],
+    players:["Juan Soto — .288, 43 HR, .421 OBP","Francisco Lindor — Switch-hitting star","Kodai Senga — High-upside arm"],
+    img: PHOTOS.night, url:"https://www.mlb.com/mets"
+  },
+  braves: {
+    name:"Atlanta Braves", div:"NL_EAST", league:"NL", rec:"94-68",
+    pos:"Eliminated in NLDS", shape:"Peak Contender", star:"Ronald Acuña Jr.", ws:"4",
+    desc:"Atlanta remains one of the most talented rosters in baseball, but a tough NLDS loss to the Dodgers ended their season earlier than expected.",
+    games:["NLDS: L vs LAD","Regular season 94 wins"],
+    players:["Ronald Acuña Jr. — Dynamic force","Austin Riley — Middle-order power","Spencer Strider — Ace when healthy"],
+    img: PHOTOS.stadium, url:"https://www.mlb.com/braves"
+  },
+  phillies: {
+    name:"Philadelphia Phillies", div:"NL_EAST", league:"NL", rec:"88-74",
+    pos:"Eliminated in WC", shape:"Contending", star:"Bryce Harper", ws:"2",
+    desc:"Bryce Harper and a strong rotation kept Philadelphia competitive, but the Wild Card exit was a disappointment for a team built to win now.",
+    games:["WC: Eliminated"],
+    players:["Bryce Harper — Still a force","Zack Wheeler — Ace","Trea Turner — Speed and contact"],
+    img: PHOTOS.field, url:"https://www.mlb.com/phillies"
+  },
+  nationals: {
+    name:"Washington Nationals", div:"NL_EAST", league:"NL", rec:"71-91",
+    pos:"Missed Playoffs", shape:"Rebuild", star:"CJ Abrams", ws:"1",
+    desc:"Washington continues its rebuild with a young, exciting core led by CJ Abrams. Wins are secondary to development right now.",
+    games:["Regular season","Missed postseason"],
+    players:["CJ Abrams — Speedy shortstop","James Wood — Top prospect impact","MacKenzie Gore — Young arm"],
+    img: PHOTOS.batter, url:"https://www.mlb.com/nationals"
+  },
+  marlins: {
+    name:"Miami Marlins", div:"NL_EAST", league:"NL", rec:"62-100",
+    pos:"Missed Playoffs", shape:"Rebuild", star:"Eury Pérez", ws:"2",
+    desc:"Miami is focused on the future. Eury Pérez and a wave of young pitching give the organization hope.",
+    games:["Regular season","Missed postseason"],
+    players:["Eury Pérez — Frontline potential","Jazz Chisholm Jr. — Flashy talent","Jesús Luzardo — Left-handed starter"],
+    img: PHOTOS.night, url:"https://www.mlb.com/marlins"
+  },
 
   // NL CENTRAL
-  brewers:   { name:"Milwaukee Brewers",    div:"NL_CENTRAL", league:"NL", rec:"103-59", pos:"NL Champions (4-0)",     star:"Jackson Chourio",    ws:"0",  desc:"Best record in baseball. Swept the Dodgers 4-0 in the NLCS and advance to the World Series for the first time since 1982.", img:"https://images.unsplash.com/photo-1508802222057-4cabc15b825f?auto=format&fit=crop&w=800&q=80" },
-  cubs:      { name:"Chicago Cubs",         div:"NL_CENTRAL", league:"NL", rec:"89-73",  pos:"Eliminated in WC",       star:"Pete Crow-Armstrong",ws:"3",  desc:"Reached the Wild Card but were eliminated by San Diego.", img:"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80" },
-  cardinals: { name:"St. Louis Cardinals",  div:"NL_CENTRAL", league:"NL", rec:"81-81",  pos:"Missed Playoffs",        star:"Nolan Arenado",      ws:"11", desc:"Finished .500 with strong defense from Nolan Arenado.", img:"https://images.unsplash.com/photo-1562077772-3bd90403f7f0?auto=format&fit=crop&w=800&q=80" },
-  reds:      { name:"Cincinnati Reds",      div:"NL_CENTRAL", league:"NL", rec:"77-85",  pos:"Missed Playoffs",        star:"Elly De La Cruz",    ws:"5",  desc:"Elly De La Cruz stole 67 bases in an exciting season.", img:"https://images.unsplash.com/photo-1529763807622-491b1bb86698?auto=format&fit=crop&w=800&q=80" },
-  pirates:   { name:"Pittsburgh Pirates",   div:"NL_CENTRAL", league:"NL", rec:"76-86",  pos:"Missed Playoffs",        star:"Paul Skenes",        ws:"5",  desc:"Paul Skenes dominated with a sub-2.00 ERA.", img:"https://images.unsplash.com/photo-1508802222057-4cabc15b825f?auto=format&fit=crop&w=800&q=80" },
+  brewers: {
+    name:"Milwaukee Brewers", div:"NL_CENTRAL", league:"NL", rec:"103-59",
+    pos:"NL Champions (4-0)", shape:"Peak Contender", star:"Jackson Chourio", ws:"0",
+    desc:"The Milwaukee Brewers put together one of the most complete seasons in recent memory. With an MLB-best 103-59 record, elite starting pitching, and a lockdown bullpen, they steamrolled through the National League and completed a stunning 4-0 sweep of the defending champion Dodgers in the NLCS. Now they wait for the ALCS winner with home-field advantage in the World Series — their first appearance since 1982.",
+    games:["NLCS G4: W 6-4 @ LAD","NLCS G3: W 6-2 @ LAD","NLCS G2: W 7-4 vs LAD","NLCS G1: W 2-1 vs LAD"],
+    players:["Jackson Chourio — .288, 26 HR, 6 PS HR","Christian Yelich — .392 Playoff BA","Freddy Peralta — 17-6, 2.85 ERA"],
+    img: PHOTOS.stadium, url:"https://www.mlb.com/brewers"
+  },
+  cubs: {
+    name:"Chicago Cubs", div:"NL_CENTRAL", league:"NL", rec:"89-73",
+    pos:"Eliminated in WC", shape:"Contending", star:"Pete Crow-Armstrong", ws:"3",
+    desc:"Chicago returned to relevance with a strong young core and a solid pitching staff, but were eliminated in the Wild Card round.",
+    games:["WC: Eliminated by SD"],
+    players:["Pete Crow-Armstrong — Dynamic CF","Shota Imanaga — Excellent starter","Cody Bellinger — Veteran bat"],
+    img: PHOTOS.field, url:"https://www.mlb.com/cubs"
+  },
+  cardinals: {
+    name:"St. Louis Cardinals", div:"NL_CENTRAL", league:"NL", rec:"81-81",
+    pos:"Missed Playoffs", shape:"Transition", star:"Nolan Arenado", ws:"11",
+    desc:"A .500 season for a proud franchise. Nolan Arenado’s defense remains elite, but the supporting cast needs refreshing.",
+    games:["Regular season","Missed postseason"],
+    players:["Nolan Arenado — Gold Glove 3B","Masyn Winn — Rising shortstop","Sonny Gray — Veteran starter"],
+    img: PHOTOS.batter, url:"https://www.mlb.com/cardinals"
+  },
+  reds: {
+    name:"Cincinnati Reds", div:"NL_CENTRAL", league:"NL", rec:"77-85",
+    pos:"Missed Playoffs", shape:"Rising", star:"Elly De La Cruz", ws:"5",
+    desc:"Elly De La Cruz is a generational talent. The Reds are still building around him, but the future is bright.",
+    games:["Regular season","Missed postseason"],
+    players:["Elly De La Cruz — .260, 25 HR, 67 SB","Hunter Greene — High-velocity arm","Matt McLain — Young middle infielder"],
+    img: PHOTOS.night, url:"https://www.mlb.com/reds"
+  },
+  pirates: {
+    name:"Pittsburgh Pirates", div:"NL_CENTRAL", league:"NL", rec:"76-86",
+    pos:"Missed Playoffs", shape:"Rising", star:"Paul Skenes", ws:"5",
+    desc:"Paul Skenes looks like an ace for the next decade. Pittsburgh is slowly assembling a competitive roster around its young pitching.",
+    games:["Regular season","Missed postseason"],
+    players:["Paul Skenes — 12-4, 1.96 ERA","Oneil Cruz — Power/speed threat","Jared Jones — Young starter"],
+    img: PHOTOS.stadium, url:"https://www.mlb.com/pirates"
+  },
 
   // NL WEST
-  dodgers:   { name:"Los Angeles Dodgers",  div:"NL_WEST",    league:"NL", rec:"100-62", pos:"Eliminated in NLCS",     star:"Shohei Ohtani",      ws:"8",  desc:"Two-time defending champions were swept 0-4 by Milwaukee in the NLCS.", img:"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80" },
-  padres:    { name:"San Diego Padres",     div:"NL_WEST",    league:"NL", rec:"91-71",  pos:"Eliminated in NLDS",     star:"Fernando Tatis Jr.", ws:"0",  desc:"Won 91 games and reached the NLDS before falling to the Brewers.", img:"https://images.unsplash.com/photo-1562077772-3bd90403f7f0?auto=format&fit=crop&w=800&q=80" },
-  diamondbacks:{ name:"Arizona Diamondbacks",div:"NL_WEST",   league:"NL", rec:"84-78",  pos:"Missed Playoffs",        star:"Corbin Carroll",     ws:"1",  desc:"Competitive season led by Corbin Carroll.", img:"https://images.unsplash.com/photo-1529763807622-491b1bb86698?auto=format&fit=crop&w=800&q=80" },
-  giants:    { name:"San Francisco Giants", div:"NL_WEST",    league:"NL", rec:"80-82",  pos:"Missed Playoffs",        star:"Matt Chapman",       ws:"8",  desc:"Matt Chapman provided Gold Glove defense at third base.", img:"https://images.unsplash.com/photo-1508802222057-4cabc15b825f?auto=format&fit=crop&w=800&q=80" },
-  rockies:   { name:"Colorado Rockies",     div:"NL_WEST",    league:"NL", rec:"61-101", pos:"Missed Playoffs",        star:"Ezequiel Tovar",     ws:"0",  desc:"Rebuilding year at high altitude in Denver.", img:"https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80" }
+  dodgers: {
+    name:"Los Angeles Dodgers", div:"NL_WEST", league:"NL", rec:"100-62",
+    pos:"Eliminated in NLCS", shape:"Peak Contender", star:"Shohei Ohtani", ws:"8",
+    desc:"Even in defeat, the Dodgers were one of the best teams in baseball. Shohei Ohtani’s historic season kept them among the favorites until Milwaukee’s complete NLCS domination. Los Angeles will reload and remain dangerous for years.",
+    games:["NLCS G4: L 4-6 vs MIL","NLCS G3: L 2-6 vs MIL","NLCS G2: L 4-7 @ MIL","NLCS G1: L 1-2 @ MIL"],
+    players:["Shohei Ohtani — .310, 54 HR, 5 PS HR","Mookie Betts — Superstar utility","Freddie Freeman — Consistent force"],
+    img: PHOTOS.batter, url:"https://www.mlb.com/dodgers"
+  },
+  padres: {
+    name:"San Diego Padres", div:"NL_WEST", league:"NL", rec:"91-71",
+    pos:"Eliminated in NLDS", shape:"Contending", star:"Fernando Tatis Jr.", ws:"0",
+    desc:"San Diego won 91 games and reached the NLDS, but ultimately fell to the Brewers. Fernando Tatis Jr. remains the centerpiece of a talented roster.",
+    games:["NLDS: L vs MIL 1-3"],
+    players:["Fernando Tatis Jr. — .278, 28 HR","Manny Machado — Veteran leader","Yu Darvish — Rotation anchor"],
+    img: PHOTOS.field, url:"https://www.mlb.com/padres"
+  },
+  diamondbacks: {
+    name:"Arizona Diamondbacks", div:"NL_WEST", league:"NL", rec:"84-78",
+    pos:"Missed Playoffs", shape:"Contending", star:"Corbin Carroll", ws:"1",
+    desc:"Arizona stayed competitive behind Corbin Carroll and a strong pitching staff, but ultimately missed the postseason by a narrow margin.",
+    games:["Regular season","Missed postseason"],
+    players:["Corbin Carroll — Dynamic outfielder","Ketel Marte — Switch-hitting force","Zac Gallen — Ace"],
+    img: PHOTOS.night, url:"https://www.mlb.com/dbacks"
+  },
+  giants: {
+    name:"San Francisco Giants", div:"NL_WEST", league:"NL", rec:"80-82",
+    pos:"Missed Playoffs", shape:"Transition", star:"Matt Chapman", ws:"8",
+    desc:"Matt Chapman’s elite defense at third base was a bright spot in an otherwise average season for San Francisco.",
+    games:["Regular season","Missed postseason"],
+    players:["Matt Chapman — Gold Glove 3B","Logan Webb — Workhorse starter","Jung Hoo Lee — Contact hitter"],
+    img: PHOTOS.stadium, url:"https://www.mlb.com/giants"
+  },
+  rockies: {
+    name:"Colorado Rockies", div:"NL_WEST", league:"NL", rec:"61-101",
+    pos:"Missed Playoffs", shape:"Rebuild", star:"Ezequiel Tovar", ws:"0",
+    desc:"Colorado is in full rebuild mode. Ezequiel Tovar is one of the few bright spots as the organization looks toward the future.",
+    games:["Regular season","Missed postseason"],
+    players:["Ezequiel Tovar — Young shortstop","Brenton Doyle — Center field defense","Cal Quantrill — Veteran arm"],
+    img: PHOTOS.field, url:"https://www.mlb.com/rockies"
+  }
 };
 
 let selectedKey = "brewers";
@@ -115,6 +332,39 @@ function vote(id) {
   if (c) { c.votes++; localStorage.setItem("votedMVP", id); renderPoll(); }
 }
 
+// -------------------- FAVORITE TEAM --------------------
+function updateHeaderFav() {
+  const fav = localStorage.getItem("favTeam");
+  const btn = document.getElementById("headerFavBtn");
+  const label = document.getElementById("headerFavLabel");
+  if (!btn || !label) return;
+  if (fav && TEAMS[fav]) {
+    label.textContent = TEAMS[fav].name;
+    btn.classList.add("has-fav");
+  } else {
+    label.textContent = "My Team";
+    btn.classList.remove("has-fav");
+  }
+}
+
+function goToFavorite() {
+  const fav = localStorage.getItem("favTeam");
+  if (fav && TEAMS[fav]) {
+    window.location.href = `teams.html?team=${fav}`;
+  } else {
+    window.location.href = "teams.html";
+    alert("Pick a favorite team on the Teams page first!");
+  }
+}
+
+function setFavorite() {
+  localStorage.setItem("favTeam", selectedKey);
+  const btn = document.getElementById("favBtn");
+  if (btn) btn.textContent = `❤️ ${TEAMS[selectedKey].name}`;
+  updateHeaderFav();
+  alert(`⭐ ${TEAMS[selectedKey].name} is now your favorite team!`);
+}
+
 // -------------------- TEAMS --------------------
 function renderGrid(filter = "ALL") {
   const grid = document.getElementById("teamGrid");
@@ -159,22 +409,34 @@ function selectTeam(key) {
   const t = TEAMS[key];
   if (!t) return;
   renderGrid();
+
   setText("spotName", t.name);
-  setText("spotBadge", t.pos.includes("Champion") ? "NL Champions" : t.pos.split(" ").slice(0,2).join(" "));
+  setText("spotBadge", t.pos);
+  setText("spotShape", `${t.shape} • ${t.rec}`);
   setText("spotDesc", t.desc);
   setText("spotRec", t.rec);
   setText("spotPos", t.pos);
-  setText("spotStar", t.star);
+  setText("spotShapeStat", t.shape);
   setText("spotWS", t.ws + " Titles");
+
   const img = document.getElementById("spotImg");
   if (img) img.src = t.img;
-}
 
-function setFavorite() {
-  localStorage.setItem("favTeam", selectedKey);
-  const btn = document.getElementById("favBtn");
-  if (btn) btn.textContent = `❤️ ${TEAMS[selectedKey].name}`;
-  alert(`⭐ ${TEAMS[selectedKey].name} saved as your favorite!`);
+  const mlb = document.getElementById("spotMlb");
+  if (mlb) mlb.href = t.url;
+
+  const gamesEl = document.getElementById("spotGames");
+  if (gamesEl) {
+    gamesEl.innerHTML = t.games.map(g => `<li>⚾ ${g}</li>`).join("");
+  }
+
+  const playersEl = document.getElementById("spotPlayers");
+  if (playersEl) {
+    playersEl.innerHTML = t.players.map(p => {
+      const parts = p.split(" — ");
+      return `<li><strong>${parts[0]}</strong> — ${parts[1] || ""}</li>`;
+    }).join("");
+  }
 }
 
 function initCompare() {
@@ -204,6 +466,7 @@ function runCompare() {
         <h4>${t1.name}</h4>
         <p><strong>Record:</strong> ${t1.rec}</p>
         <p><strong>Status:</strong> ${t1.pos}</p>
+        <p><strong>Shape:</strong> ${t1.shape}</p>
         <p><strong>Star:</strong> ${t1.star}</p>
         <p><strong>WS Titles:</strong> ${t1.ws}</p>
       </div>
@@ -211,6 +474,7 @@ function runCompare() {
         <h4>${t2.name}</h4>
         <p><strong>Record:</strong> ${t2.rec}</p>
         <p><strong>Status:</strong> ${t2.pos}</p>
+        <p><strong>Shape:</strong> ${t2.shape}</p>
         <p><strong>Star:</strong> ${t2.star}</p>
         <p><strong>WS Titles:</strong> ${t2.ws}</p>
       </div>
@@ -314,11 +578,22 @@ document.addEventListener("DOMContentLoaded", () => {
   renderPoll();
   renderGrid();
   initCompare();
+  updateHeaderFav();
 
+  // Deep link from favorite button
+  const params = new URLSearchParams(window.location.search);
+  const teamParam = params.get("team");
+  if (teamParam && TEAMS[teamParam]) {
+    selectTeam(teamParam);
+  } else {
+    const fav = localStorage.getItem("favTeam");
+    if (fav && TEAMS[fav]) selectTeam(fav);
+    else selectTeam("brewers");
+  }
+
+  const favBtn = document.getElementById("favBtn");
   const fav = localStorage.getItem("favTeam");
-  if (fav && TEAMS[fav]) {
-    selectTeam(fav);
-    const btn = document.getElementById("favBtn");
-    if (btn) btn.textContent = `❤️ ${TEAMS[fav].name}`;
+  if (favBtn && fav && TEAMS[fav] && fav === selectedKey) {
+    favBtn.textContent = `❤️ ${TEAMS[fav].name}`;
   }
 });
